@@ -37,7 +37,8 @@ public class FilePicker : MonoBehaviour
 				Debug.Log("Path: " + path);
 				Debug.Log("***********************************");
 
-				ReadTextFile(path);
+				// ReadTextFile(path);
+				StartCoroutine(ReadTextFileCoroutine(path));
 
 			}, false);
 		}, false);
@@ -54,6 +55,26 @@ public class FilePicker : MonoBehaviour
 		StreamReader sr = new StreamReader(new FileStream(path, FileMode.OpenOrCreate), System.Text.Encoding.UTF8);
 		string fileText = sr.ReadToEnd();
 		sr.Dispose();
+		Debug.Log("***********************************");
+		Debug.Log(" Text: " + fileText);
+		Debug.Log("***********************************");
+
+		if(textMesh != null)
+		{
+			textMesh.text = fileText;
+		}
+	}
+
+	IEnumerator ReadTextFileCoroutine(string path)
+	{
+		
+		Debug.Log("***********************************");
+		Debug.Log(" Coroutine start: " + path);
+		Debug.Log("***********************************");
+		var www = new WWW("file://" + path);
+		yield return www;
+
+		string fileText = www.text;
 		Debug.Log("***********************************");
 		Debug.Log(" Text: " + fileText);
 		Debug.Log("***********************************");
