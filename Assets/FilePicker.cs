@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 #if !UNITY_EDITOR && UNITY_WSA_10_0
 using System;
@@ -10,6 +11,8 @@ using Windows.Storage.Pickers;
 
 public class FilePicker : MonoBehaviour
 {
+	public TextMesh textMesh;
+
 	void Start ()
 	{
 #if !UNITY_EDITOR && UNITY_WSA_10_0
@@ -20,7 +23,9 @@ public class FilePicker : MonoBehaviour
 		UnityEngine.WSA.Application.InvokeOnUIThread(async () =>
 		{
 			var filepicker = new FileOpenPicker();
-			filepicker.FileTypeFilter.Add("*");
+			// filepicker.FileTypeFilter.Add("*");
+			filepicker.FileTypeFilter.Add(".txt");
+
 			var file = await filepicker.PickSingleFileAsync();
 			UnityEngine.WSA.Application.InvokeOnAppThread(() => 
 			{
@@ -32,6 +37,8 @@ public class FilePicker : MonoBehaviour
 				Debug.Log("Path: " + path);
 				Debug.Log("***********************************");
 
+				ReadTextFile(path);
+
 			}, false);
 		}, false);
 
@@ -40,5 +47,20 @@ public class FilePicker : MonoBehaviour
 		Debug.Log("File Picker end.");
 		Debug.Log("***********************************");
 #endif
+	}
+
+	void ReadTextFile(string path)
+	{
+		StreamReader sr = new StreamReader(new FileStream(path, FileMode.OpenOrCreate), System.Text.Encoding.UTF8);
+		string fileText = sr.ReadToEnd();
+		sr.Dispose();
+		Debug.Log("***********************************");
+		Debug.Log(" Text: " + fileText);
+		Debug.Log("***********************************");
+
+		if(textMesh != null)
+		{
+			textMesh.text = fileText;
+		}
 	}
 }
