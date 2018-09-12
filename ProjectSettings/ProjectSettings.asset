@@ -555,7 +555,7 @@ PlayerSettings:
   scriptingDefineSymbols: {}
   platformArchitecture: {}
   scriptingBackend:
-    Metro: 2
+    Metro: 1
   incrementalIl2cppBuild: {}
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
@@ -568,7 +568,7 @@ PlayerSettings:
   metroCertificatePassword: 
   metroCertificateSubject: DefaultCompany
   metroCertificateIssuer: DefaultCompany
-  metroCertificateNotAfter: 809f547d8368d501
+  metroCertificateNotAfter: 0055eff58469d501
   metroApplicationDescription: HoloLensFilePickerSample
   wsaImages: {}
   metroTileShortName: 
